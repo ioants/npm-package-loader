@@ -24,15 +24,23 @@ var parseJson = function(contents) {
 
 exports.load = function(path_to_asset, tag) {
     Logger.log('info', 'Loading asset', {path: path_to_asset});
-    var p1 = fs.readFileAsync(path.join(process.cwd(), path_to_asset), 'utf8').then(parseJson);
-    return p1.then(function(assetObject) {
-                Logger.log('info', 'Success! Loaded asset: '+path_to_asset);
-                loaded_assets[tag] = assetObject;
-                return new Promise(function (resolve, reject) {resolve(assetObject)});
-           }).catch(function(error){
-              Logger.log('error', 'Faield to load asset: '+path_to_asset);
-              throw error;
-	       });
+    if (tag in loaded_assets){
+        return new Promise(function (resolve, reject) {
+            Logger.log('info', 'Loading preloaded asset', {tag:tag});
+            resolve(loaded_assets[tag]);
+        });
+    }
+    else{
+        var p1 = fs.readFileAsync(path.join(process.cwd(), path_to_asset), 'utf8').then(parseJson);
+        return p1.then(function(assetObject) {
+                    Logger.log('info', 'Success! Loaded asset: '+path_to_asset);
+                    loaded_assets[tag] = assetObject;
+                    return new Promise(function (resolve, reject) {resolve(assetObject)});
+               }).catch(function(error){
+                  Logger.log('error', 'Failed to load asset: '+path_to_asset);
+                  throw error;
+    	       });
+    }
 }
 
 exports.getLoadedAsset = function(tag) {
