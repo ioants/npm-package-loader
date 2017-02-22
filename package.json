@@ -1,0 +1,28 @@
+{
+  "name": "ioant-loader",
+  "version": "0.1.0",
+  "description": "",
+  "main": "loader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ioant"
+  ],
+  "author": "Adam Saxen",
+  "license": "MIT",
+  "bugs": {
+      "url" : "https://github.com/ioants/npm-package-loader/issues"
+  },
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://github.com/ioants/npm-package-loader.git"
+  },
+  "dependencies" :
+  {
+      "winston": "^2.3.0",
+      "bluebird": "^3.0",
+      "ioant-logger": ">=0.1.0"
+  }
+}
